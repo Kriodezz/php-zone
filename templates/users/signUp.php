@@ -8,11 +8,11 @@
         </div>
     <?php } ?>
     <form action="/users/register" method="post">
-        <label>Nickname
+        <label>Никнейм
             <input type="text" name="nickname" value="<?= $_POST['nickname'] ?? '' ?>">
         </label>
         <br><br>
-        <label>Email
+        <label>E-mail
             <input type="text" name="email" value="<?= $_POST['email'] ?? '' ?>">
         </label>
         <br><br>

@@ -8,7 +8,6 @@ use MyProject\Models\Articles\Article;
 class MainController
 {
 
-    /** @var View */
     protected View $view;
 
     public function __construct()
