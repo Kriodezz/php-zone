@@ -24,8 +24,7 @@ class SendMailForSignUp extends \PHPMailer\PHPMailer\PHPMailer
         $mail->addAddress($user->getEmail());  //почта адресанта
         $mail -> isHTML ( true );
         $mail->Subject = 'Активация аккаунта'; //тема
-        //$mail->Body = $body;
-        $mail->Body = 'dbbbbfb';
+        $mail->Body = $body;
         $mail->AltBody = 'Добро пожаловать на наш портал! Для активации вашего аккаунта
     перейдите по ссылке http://php-zone/users/' . $user->getId() . '/activate/' . $code;
         $mail->isSMTP();
