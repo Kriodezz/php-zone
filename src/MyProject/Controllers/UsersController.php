@@ -2,6 +2,7 @@
 
 namespace MyProject\Controllers;
 
+use MyProject\Exceptions\InvalidActivationException;
 use MyProject\Models\Users\User;
 use MyProject\Services\SendMailForSignUp;
 use MyProject\View\View;
@@ -28,7 +29,7 @@ class UsersController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml('users/signUp.php', [
-                    'error' => $e->getMessage() . $e->getCode(),
+                    'error' => $e->getMessage(),
                     'title' => 'Регистрация'
                 ]);
                 return;
@@ -63,11 +64,28 @@ class UsersController
 
     public function activate(int $userId, string $activationCode)
     {
+
         $user = User::getById($userId);
+
+        if (null === $user) {
+            $this->view->renderHtml(
+                'errors/500.php',
+                ['title' => 'Ошибка', 'error' => 'Не найден пользователь']);
+            return;
+        }
+
         $isCodeValid = UserActivationService::checkActivationCode($user, $activationCode);
         if ($isCodeValid) {
             $user->activate();
-            echo 'OK!';
+            UserActivationService::delete($activationCode);
+
+            $this->view->renderHtml(
+                'users/activationSuccessful.php',
+                ['title' => 'Ура!!!']);
+        } else {
+            $this->view->renderHtml(
+                'errors/500.php',
+                ['title' => 'Ошибка', 'error' => 'Не верный код активации']);
         }
     }
 }
