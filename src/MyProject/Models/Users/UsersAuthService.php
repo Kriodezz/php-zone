@@ -7,7 +7,7 @@ class UsersAuthService
     public static function createToken(User $user): void
     {
         $token = $user->getId() . ':' . $user->getAuthToken();
-        setcookie('token', $token, 0, '/', '', false, true);
+        setcookie('token' . md5($user->getId() . 11), $token, 0, '/', '', false, true);
     }
 
     public static function getUserByToken(): ?User
@@ -31,5 +31,12 @@ class UsersAuthService
         }
 
         return $user;
+    }
+
+    public static function logout()
+    {
+        setcookie('token', '', time() - 3600, '/', '', false, true);
+        header('Location: /');
+        exit();
     }
 }

@@ -18,23 +18,18 @@ class UsersController extends AbstractController
             try {
 
                 $user = User::signUp($_POST);
-
-            } catch (InvalidArgumentException $e) {
-                $this->view->renderHtml('users/signUp.php', [
-                    'error' => $e->getMessage(),
-                    'title' => 'Регистрация'
-                ]);
-                return;
-            }
-
-            try {
-
                 $code = UserActivationService::createActivationCode($user);
                 SendMailForSignUp::sendMail($user, ['userId' => $user->getId(), 'code' => $code]);
 
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml('users/signUp.php',
+                    ['error' => $e->getMessage(), 'title' => 'Регистрация']
+                );
+                return;
+
             } catch (Exception $e) {
                 $log = fopen(__DIR__ . '/../Logs/ErrorLogSendMail.txt', 'a');
-                fwrite($log, date('Y-m-d h:m:i') . ' ' . $e->getMessage() . "\n");
+                fwrite($log, date('Y-m-d h:i:s') . ' | ' . $e->getMessage() . "\n");
                 fclose($log);
 
                 $this->view->renderHtml('users/signUp.php', [
@@ -47,7 +42,6 @@ class UsersController extends AbstractController
             $this->view->renderHtml(
                 'users/signUpSuccessful.php',
                 ['title' => 'Ура!!!']);
-
             return;
         }
 
@@ -62,7 +56,8 @@ class UsersController extends AbstractController
         if (null === $user) {
             $this->view->renderHtml(
                 'errors/500.php',
-                ['title' => 'Ошибка', 'error' => 'Не найден пользователь']);
+                ['title' => 'Ошибка', 'error' => 'Не найден пользователь']
+            );
             return;
         }
 
@@ -73,11 +68,13 @@ class UsersController extends AbstractController
 
             $this->view->renderHtml(
                 'users/activationSuccessful.php',
-                ['title' => 'Ура!!!']);
+                ['title' => 'Ура!!!']
+            );
         } else {
             $this->view->renderHtml(
                 'errors/500.php',
-                ['title' => 'Ошибка', 'error' => 'Не верный код активации']);
+                ['title' => 'Ошибка', 'error' => 'Не верный код активации']
+            );
         }
     }
 
@@ -92,13 +89,23 @@ class UsersController extends AbstractController
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml(
                     'users/login.php',
-                    [
-                        'title' => 'Авторизация',
-                        'error' => $e->getMessage()
-                    ]);
+                    ['title' => 'Авторизация', 'error' => $e->getMessage()]
+                );
                 return;
             }
         }
         $this->view->renderHtml('users/login.php', ['title' => 'Авторизация']);
+    }
+
+    public function logout(): void
+    {
+        if ($this->user !== null) {
+            UsersAuthService::logout();
+        } else {
+            $this->view->renderHtml(
+                'users/login.php',
+                ['title' => 'Авторизация', 'error' => 'Сначала необходимо авторизоваться']
+            );
+        }
     }
 }

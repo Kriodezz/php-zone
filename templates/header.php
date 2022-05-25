@@ -21,7 +21,11 @@
 
     <tr>
         <td colspan="2" style="text-align: right">
-            <?php echo !empty($user) ? 'Привет, ' . $user->getNickname() : 'Войдите на сайт'; ?>
+            <?php if (!empty($user)) {
+                echo 'Привет, ' . $user->getNickname(); ?> | <a href="/users/logout">Выйти</a>
+            <?php } else { ?>
+                <a href="/users/login">Войти</a> | <a href="/users/register">Зарегистрироваться</a>
+            <?php } ?>
         </td>
     </tr>
 
