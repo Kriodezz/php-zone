@@ -2,23 +2,15 @@
 
 namespace MyProject\Controllers;
 
-use MyProject\Exceptions\InvalidActivationException;
 use MyProject\Models\Users\User;
+use MyProject\Models\Users\UsersAuthService;
 use MyProject\Services\SendMailForSignUp;
-use MyProject\View\View;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\Users\UserActivationService;
 use PHPMailer\PHPMailer\Exception;
 
-class UsersController
+class UsersController extends AbstractController
 {
-
-    protected $view;
-
-    public function __construct()
-    {
-        $this->view = new View(__DIR__ . '/../../../templates');
-    }
 
     public function signUp()
     {
@@ -87,5 +79,26 @@ class UsersController
                 'errors/500.php',
                 ['title' => 'Ошибка', 'error' => 'Не верный код активации']);
         }
+    }
+
+    public function login()
+    {
+        if (!empty($_POST)) {
+            try {
+                $user = User::login($_POST);
+                UsersAuthService::createToken($user);
+                header('Location: /');
+                exit();
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml(
+                    'users/login.php',
+                    [
+                        'title' => 'Авторизация',
+                        'error' => $e->getMessage()
+                    ]);
+                return;
+            }
+        }
+        $this->view->renderHtml('users/login.php', ['title' => 'Авторизация']);
     }
 }

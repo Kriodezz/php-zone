@@ -3,18 +3,11 @@
 namespace MyProject\Controllers;
 
 use MyProject\Models\Articles\Article;
-use MyProject\View\View;
 use MyProject\Models\Users\User;
 use MyProject\Exceptions\NotFoundException;
 
-class ArticlesController
+class ArticlesController extends AbstractController
 {
-    protected View $view;
-
-    public function __construct()
-    {
-        $this->view = new View(__DIR__ . '/../../../templates');
-    }
 
     public function view(int $articleId)
     {

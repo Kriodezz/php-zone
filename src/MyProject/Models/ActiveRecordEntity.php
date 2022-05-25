@@ -28,7 +28,7 @@ abstract class ActiveRecordEntity
 
     abstract protected static function getTableName(): string;
 
-    public static function getById(int $id): ?self
+    public static function getById(int $id): ?static
     {
         $db = Db::getInstance();
         $entities = $db->query(
@@ -40,7 +40,7 @@ abstract class ActiveRecordEntity
         return $entities ? $entities[0] : null;
     }
 
-    public static function findOneByColumn(string $columnName, $value): ?self
+    public static function findOneByColumn(string $columnName, $value): ?static
     {
         $db = Db::getInstance();
         $result = $db->query(
