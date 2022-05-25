@@ -16,16 +16,4 @@ class MainController extends AbstractController
         );
     }
 
-    public function sayHello(string $name)
-    {
-        $this->view->renderHtml(
-            'main/hello.php',
-            ['name' => $name, 'title' => 'Hello, ' . $name]
-        );
-    }
-
-    public function sayBye(string $name)
-    {
-        echo 'Пока, ' . $name;
-    }
 }
