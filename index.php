@@ -32,10 +32,19 @@ try {
 
 } catch (\MyProject\Exceptions\DbException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('500.php', ['error' => $e->getMessage()], 500);
+    $view->renderHtml('500.php',
+        ['title' => 'Ошибка', 'error' => $e->getMessage()], 500
+    );
 
 } catch (\MyProject\Exceptions\NotFoundException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('404.php', ['error' => $e->getMessage()], 404);
+    $view->renderHtml('404.php',
+        ['title' => 'Ошибка', 'error' => $e->getMessage()], 404
+    );
 
+} catch (\MyProject\Exceptions\UnauthorizedException $e) {
+    $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
+    $view->renderHtml('401.php',
+        ['title' => 'Ошибка', 'error' => $e->getMessage()], 401
+    );
 }

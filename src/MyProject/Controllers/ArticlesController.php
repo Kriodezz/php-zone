@@ -2,6 +2,8 @@
 
 namespace MyProject\Controllers;
 
+use MyProject\Exceptions\InvalidArgumentException;
+use MyProject\Exceptions\UnauthorizedException;
 use MyProject\Models\Articles\Article;
 use MyProject\Models\Users\User;
 use MyProject\Exceptions\NotFoundException;
@@ -33,15 +35,27 @@ class ArticlesController extends AbstractController
 
     public function create()
     {
-        $author = User::getById(1);
 
-        $article = new Article();
-        $article->setName('Имя6 созданной статьи');
-        $article->setText('Текст6 созданной статьи');
-        $article->setAuthor($author);
-        //$article->setCreatedAt(date('Y-m-d H:i:s'));
-        $article->save();
-        var_dump($article);
+        if ($this->user === null) {
+            throw new UnauthorizedException();
+        }
+
+        if (!empty($_POST)) {
+            try {
+
+                $article = Article::createFromArray($_POST, $this->user);
+
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
+                return;
+            }
+
+            header('Location: /articles/' . $article->getId(), true, 302);
+            exit();
+        }
+
+        $this->view->renderHtml('articles/create.php', ['title' => 'Новая статья']);
+
     }
 
     public function edit(int $articleId)
