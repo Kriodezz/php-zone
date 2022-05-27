@@ -36,6 +36,16 @@ class User extends ActiveRecordEntity
         return $this->authToken;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getPasswordHash(): string
+    {
+        return $this->passwordHash;
+    }
+
     protected static function getTableName(): string
     {
         return 'users';
@@ -120,11 +130,6 @@ class User extends ActiveRecordEntity
         $user->save();
 
         return $user;
-    }
-
-    public function getPasswordHash(): string
-    {
-        return $this->passwordHash;
     }
 
     private function refreshAuthToken()

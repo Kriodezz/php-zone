@@ -2,6 +2,7 @@
 
 namespace MyProject\Controllers;
 
+use MyProject\Exceptions\ForbiddenException;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Exceptions\UnauthorizedException;
 use MyProject\Models\Articles\Article;
@@ -37,7 +38,10 @@ class ArticlesController extends AbstractController
     {
 
         if ($this->user === null) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(
+                'Вы не авторизованы. Для доступа к этой странице нужно 
+                <a href="/users/login">войти на сайт</a>'
+            );
         }
 
         if (!empty($_POST)) {
@@ -47,6 +51,10 @@ class ArticlesController extends AbstractController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
+                return;
+            } catch (ForbiddenException $e) {
+                $this->view->renderHtml('errors/400+.php',
+                    ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 403);
                 return;
             }
 

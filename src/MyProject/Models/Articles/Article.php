@@ -2,6 +2,7 @@
 
 namespace MyProject\Models\Articles;
 
+use MyProject\Exceptions\ForbiddenException;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\ActiveRecordEntity;
 use MyProject\Models\Users\User;
@@ -71,6 +72,10 @@ class Article extends ActiveRecordEntity
 
         if (empty($fields['text'])) {
             throw new InvalidArgumentException('Не передан текст статьи');
+        }
+
+        if ($author->getRole() !== 'admin') {
+            throw new ForbiddenException('У вас нет прав на добавление новых статей');
         }
 
         $article = new Article();

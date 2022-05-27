@@ -39,12 +39,11 @@ try {
 } catch (\MyProject\Exceptions\NotFoundException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
     $view->renderHtml('404.php',
-        ['title' => 'Ошибка', 'error' => $e->getMessage()], 404
+        ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 404
     );
 
 } catch (\MyProject\Exceptions\UnauthorizedException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('401.php',
-        ['title' => 'Ошибка', 'error' => $e->getMessage()], 401
-    );
+    $view->renderHtml('400+.php',
+        ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 401);
 }
