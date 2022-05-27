@@ -4,6 +4,16 @@
     <div class="sidebarHeader">Меню</div>
     <ul>
         <li><a href="/">Главная страница</a></li>
+
+
+        <?php if ($user !== null) {
+            if ('admin' === $user->getRole()) { ?>
+        <li><a href="articles/create">Добавить новую статью</a></li>
+            <?php }
+        } ?>
+
+
+
     </ul>
 </td>
 </tr>
