@@ -44,6 +44,10 @@ class ArticlesController extends AbstractController
             );
         }
 
+        if ($this->user->getRole() !== 'admin') {
+            throw new ForbiddenException('У вас нет прав на добавление новых статей');
+        }
+
         if (!empty($_POST)) {
             try {
 
@@ -51,10 +55,6 @@ class ArticlesController extends AbstractController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
-                return;
-            } catch (ForbiddenException $e) {
-                $this->view->renderHtml('errors/400+.php',
-                    ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 403);
                 return;
             }
 

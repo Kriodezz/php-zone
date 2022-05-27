@@ -74,10 +74,6 @@ class Article extends ActiveRecordEntity
             throw new InvalidArgumentException('Не передан текст статьи');
         }
 
-        if ($author->getRole() !== 'admin') {
-            throw new ForbiddenException('У вас нет прав на добавление новых статей');
-        }
-
         $article = new Article();
 
         $article->setAuthor($author);

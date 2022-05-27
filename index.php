@@ -32,18 +32,25 @@ try {
 
 } catch (\MyProject\Exceptions\DbException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('500.php',
-        ['title' => 'Ошибка', 'error' => $e->getMessage()], 500
-    );
+
+    $log = fopen(__DIR__ . '/src/MyProject/Logs/ErrorLogDb.txt', 'a');
+    fwrite($log, date('Y-m-d h:i:s') . ' | ' . $e->getMessage() . "\n");
+    fclose($log);
+
+    $view->renderHtml('500.php', ['title' => 'Ошибка'], 500);
 
 } catch (\MyProject\Exceptions\NotFoundException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('404.php',
-        ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 404
-    );
+    $view->renderHtml('404.php', ['title' => 'Ошибка'], 404);
 
 } catch (\MyProject\Exceptions\UnauthorizedException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
-    $view->renderHtml('400+.php',
+    $view->renderHtml('forbidden.php',
         ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 401);
+
+} catch (MyProject\Exceptions\ForbiddenException $e) {
+    $view = new \MyProject\View\View(__DIR__ . '/templates/errors');
+    $view->renderHtml('forbidden.php',
+        ['title' => 'Ошибка доступа', 'error' => $e->getMessage()], 403);
+    return;
 }

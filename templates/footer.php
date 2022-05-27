@@ -5,14 +5,13 @@
     <ul>
         <li><a href="/">Главная страница</a></li>
 
-
-        <?php if ($user !== null) {
+        <?php
+        if (isset($user)) {
             if ('admin' === $user->getRole()) { ?>
-        <li><a href="articles/create">Добавить новую статью</a></li>
-            <?php }
+                    <li><a href="articles/create">Добавить новую статью</a></li>
+        <?php
+            }
         } ?>
-
-
 
     </ul>
 </td>
