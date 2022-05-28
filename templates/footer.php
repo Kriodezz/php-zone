@@ -8,7 +8,7 @@
         <?php
         if (isset($user)) {
             if ('admin' === $user->getRole()) { ?>
-                    <li><a href="articles/create">Добавить новую статью</a></li>
+                <li><a href="articles/create">Добавить новую статью</a></li>
         <?php
             }
         } ?>

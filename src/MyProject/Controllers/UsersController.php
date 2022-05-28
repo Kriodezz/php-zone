@@ -23,7 +23,7 @@ class UsersController extends AbstractController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml('users/signUp.php',
-                    ['error' => $e->getMessage(), 'title' => 'Регистрация']
+                    ['title' => 'Регистрация', 'error' => $e->getMessage()]
                 );
                 return;
 
@@ -33,8 +33,8 @@ class UsersController extends AbstractController
                 fclose($log);
 
                 $this->view->renderHtml('users/signUp.php', [
-                    'error' => 'Что-то пошло не так:( Повторите попытку позже',
-                    'title' => 'Регистрация'
+                    'title' => 'Регистрация',
+                    'error' => 'Что-то пошло не так:( Повторите попытку позже'
                 ]);
                 return;
             }

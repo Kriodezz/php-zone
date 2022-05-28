@@ -31,7 +31,7 @@ class ArticlesController extends AbstractController
 
         $this->view->renderHtml(
             'articles/view.php',
-            ['article' => $article, 'title' => 'Article ' . $articleId]);
+            ['title' => 'Article ' . $articleId, 'article' => $article]);
     }
 
     public function create()
@@ -51,14 +51,15 @@ class ArticlesController extends AbstractController
         if (!empty($_POST)) {
             try {
 
-                $article = Article::createFromArray($_POST, $this->user);
+                $article = Article::createArticle($_POST, $this->user);
 
             } catch (InvalidArgumentException $e) {
-                $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
+                $this->view->renderHtml('articles/create.php',
+                    ['title' => 'Новая статья', 'error' => $e->getMessage()]);
                 return;
             }
 
-            header('Location: /articles/' . $article->getId(), true, 302);
+            header('Location: /articles/' . $article->getId());
             exit();
         }
 
@@ -74,10 +75,42 @@ class ArticlesController extends AbstractController
             throw new NotFoundException();
         }
 
-        $article->setName('Новое название статьи');
-        $article->setText('Новый текст статьи');
+        if ($this->user === null) {
+            throw new UnauthorizedException(
+                'Вы не авторизованы. Для доступа к этой странице нужно 
+                <a href="/users/login">войти на сайт</a>'
+            );
+        }
 
-        $article->save();
+        if ($this->user->getRole() !== 'admin') {
+            throw new ForbiddenException('У вас нет прав на редактирование статей');
+        }
+
+        if (!empty($_POST)) {
+            try {
+
+                $article->updateArticle($_POST);
+
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml(
+                    'articles/edit.php',
+                    [
+                        'title' => 'Редактирование',
+                        'article' => $article,
+                        'error' => $e->getMessage()
+                    ]
+                );
+
+                return;
+
+            }
+            header('Location: /articles/' . $article->getId());
+            exit();
+
+        }
+        $this->view->renderHtml('articles/edit.php',
+            ['title' => 'Редактирование', 'article' => $article]
+        );
     }
 
     public function remove(int $articleId)
@@ -88,6 +121,20 @@ class ArticlesController extends AbstractController
             throw new NotFoundException();
         }
 
+        if ($this->user === null) {
+            throw new UnauthorizedException(
+                'Вы не авторизованы. Для доступа к этой странице нужно 
+                <a href="/users/login">войти на сайт</a>'
+            );
+        }
+
+        if ($this->user->getRole() !== 'admin') {
+            throw new ForbiddenException('У вас нет прав на удаление статей');
+        }
+
         $article->delete();
+
+        header('Location: /');
+        exit();
     }
 }

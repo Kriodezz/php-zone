@@ -12,7 +12,7 @@ class MainController extends AbstractController
         $articles = Article::findAll();
         $this->view->renderHtml(
             'main/main.php',
-            ['articles' => $articles, 'title' => 'My Blog']
+            ['title' => 'My Blog', 'articles' => $articles]
         );
     }
 
