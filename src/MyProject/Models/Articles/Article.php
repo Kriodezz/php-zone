@@ -2,7 +2,6 @@
 
 namespace MyProject\Models\Articles;
 
-use MyProject\Exceptions\ForbiddenException;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\ActiveRecordEntity;
 use MyProject\Models\Users\User;
@@ -32,7 +31,6 @@ class Article extends ActiveRecordEntity
     {
         $this->authorId = $authorId;
     }
-
 
     public function setAuthor(User $author): void
     {

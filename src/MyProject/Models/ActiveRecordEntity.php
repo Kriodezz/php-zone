@@ -91,7 +91,8 @@ abstract class ActiveRecordEntity
             $params2values[':' . $column] = $value;
         }
 
-        $sql = 'INSERT INTO ' . static::getTableName() . '(' . implode(', ', $columns) . ') VALUES (' . implode(', ', $params) . ')';
+        $sql = 'INSERT INTO ' . static::getTableName() . '(' . implode(', ', $columns) . ') 
+        VALUES (' . implode(', ', $params) . ')';
         $db = Db::getInstance();
         $db->execute($sql, $params2values);
         $this->id = $db->getLastInsertId();

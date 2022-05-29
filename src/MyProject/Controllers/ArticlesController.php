@@ -6,18 +6,31 @@ use MyProject\Exceptions\ForbiddenException;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Exceptions\UnauthorizedException;
 use MyProject\Models\Articles\Article;
-use MyProject\Models\Users\User;
+use MyProject\Models\Articles\Comment;
 use MyProject\Exceptions\NotFoundException;
 
 class ArticlesController extends AbstractController
 {
 
-    public function view(int $articleId)
+    public function view(int $articleId, array $vars = [])
     {
         $article = Article::getById($articleId);
 
         if ($article === null) {
             throw new NotFoundException();
+        }
+
+        $comments = Comment::findAllCommentForArticle(
+            'article_id',
+            $article->getId()
+        );
+
+        if ($comments !== null) {
+            $commentsForView = [];
+            foreach ($comments as $comment) {
+                $commentsForView[] = $comment->getComment();
+            }
+            $this->view->setVars('comments', $commentsForView);
         }
 
 //        $reflector = new \ReflectionObject($article);
@@ -31,7 +44,8 @@ class ArticlesController extends AbstractController
 
         $this->view->renderHtml(
             'articles/view.php',
-            ['title' => 'Article ' . $articleId, 'article' => $article]);
+            array_merge(['title' => 'Article ' . $articleId, 'article' => $article], $vars)
+        );
     }
 
     public function create()
