@@ -1,5 +1,6 @@
 <?php
 
+use MyProject\Controllers\AdminsController;
 use MyProject\Controllers\ArticlesController;
 use MyProject\Controllers\MainController;
 use MyProject\Controllers\UsersController;
@@ -15,5 +16,10 @@ return [
     '~^users/(\d+)/activate/(.+)$~' => [UsersController::class, 'activate'],
     '~^users/login$~' => [UsersController::class, 'login'],
     '~^users/logout$~' => [UsersController::class, 'logout'],
-    '~^articles/(\d+)/comments~' => [CommentsController::class, 'addComment']
+    '~^articles/(\d+)/comments~' => [CommentsController::class, 'addComment'],
+    '~^comments/(\d+)/edit~' => [CommentsController::class, 'editComment'],
+    '~^comments/(\d+)/delete~' => [CommentsController::class, 'deleteComment'],
+    '~^admin/482$~' => [AdminsController::class, 'enter'],
+    '~^admin/articles$~' => [AdminsController::class, 'articles'],
+    '~^admin/comments~' => [AdminsController::class, 'comments']
 ];
