@@ -38,6 +38,11 @@ class Comment extends ActiveRecordEntity
         $this->date = $date;
     }
 
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
     public function getComment()
     {
         return $this->comment;
@@ -59,10 +64,12 @@ class Comment extends ActiveRecordEntity
 
         $comment->setArticleId($article->getId());
         $comment->setUserId($user->getId());
-        $comment->setComment(htmlentities($commentData['comment']));
+        $comment->setComment(nl2br(htmlentities($commentData['comment'])));
         $comment->setDate(date('Y-m-d H:i:s'));
 
         $comment->save();
+
+        return $comment;
     }
 
     public static function findAllCommentForArticle(string $columnName, $value): ?array

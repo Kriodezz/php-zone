@@ -26,11 +26,11 @@ class ArticlesController extends AbstractController
         );
 
         if ($comments !== null) {
-            $commentsForView = [];
-            foreach ($comments as $comment) {
-                $commentsForView[] = $comment->getComment();
-            }
-            $this->view->setVars('comments', $commentsForView);
+//            $commentsForView = [];
+//            foreach ($comments as $comment) {
+//                $commentsForView[$comment->getId()] = $comment->getComment();
+//            }
+            $this->view->setVars('comments', $comments);
         }
 
 //        $reflector = new \ReflectionObject($article);

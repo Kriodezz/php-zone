@@ -27,8 +27,8 @@ class CommentsController extends AbstractController
 
         try {
 
-            Comment::addComment($_POST, $this->user, $article);
-            header('Location: /articles/' . $articleId);
+            $comment = Comment::addComment($_POST, $this->user, $article);
+            header('Location: /articles/' . $articleId . '#comment' . $comment->getId());
 
         } catch (InvalidArgumentException $e) {
             $article = new ArticlesController();
