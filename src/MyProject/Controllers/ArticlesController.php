@@ -127,7 +127,7 @@ class ArticlesController extends AbstractController
         );
     }
 
-    public function remove(int $articleId)
+    public function delete(int $articleId)
     {
         $article = Article::getById($articleId);
 

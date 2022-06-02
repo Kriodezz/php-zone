@@ -48,9 +48,27 @@ class Comment extends ActiveRecordEntity
         return $this->comment;
     }
 
+    public function getArticleId()
+    {
+        return $this->articleId;
+    }
+
     protected static function getTableName(): string
     {
         return 'comments';
+    }
+
+    public static function findAllCommentForArticle(string $columnName, $value): ?array
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            'SELECT * FROM ' . static::getTableName() . ' 
+            WHERE ' . $columnName . ' = :value ORDER BY id DESC LIMIT 10;',
+            [':value' => $value],
+            static::class
+        );
+
+        return $result ? $result : null;
     }
 
     public static function addComment($commentData, User $user, Article  $article)
@@ -72,16 +90,18 @@ class Comment extends ActiveRecordEntity
         return $comment;
     }
 
-    public static function findAllCommentForArticle(string $columnName, $value): ?array
+    public function editComment($dataEditComment)
     {
-        $db = Db::getInstance();
-        $result = $db->query(
-            'SELECT * FROM ' . static::getTableName() . ' 
-            WHERE ' . $columnName . ' = :value ORDER BY date DESC LIMIT 10;',
-            [':value' => $value],
-            static::class
-        );
 
-        return $result ? $result : null;
+        if (empty($dataEditComment['edit-comment'])) {
+            $this->setComment($this->getComment());
+        } else {
+            $this->setComment($dataEditComment['edit-comment']);
+        }
+
+        $this->save();
+
+        return $this;
     }
+
 }

@@ -11,7 +11,7 @@ return [
     '~^articles/(\d+)$~' => [ArticlesController::class, 'view'],
     '~^articles/create$~' => [ArticlesController::class, 'create'],
     '~^articles/(\d+)/edit$~' => [ArticlesController::class, 'edit'],
-    '~^articles/(\d+)/remove$~' => [ArticlesController::class, 'remove'],
+    '~^articles/(\d+)/delete$~' => [ArticlesController::class, 'delete'],
     '~^users/register$~' => [UsersController::class, 'signUp'],
     '~^users/(\d+)/activate/(.+)$~' => [UsersController::class, 'activate'],
     '~^users/login$~' => [UsersController::class, 'login'],
