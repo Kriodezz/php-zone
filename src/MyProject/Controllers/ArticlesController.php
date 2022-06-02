@@ -107,7 +107,7 @@ class ArticlesController extends AbstractController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml(
-                    'articles/edit.php',
+                    'articles/editArticle.php',
                     [
                         'title' => 'Редактирование',
                         'article' => $article,
@@ -122,7 +122,7 @@ class ArticlesController extends AbstractController
             exit();
 
         }
-        $this->view->renderHtml('articles/edit.php',
+        $this->view->renderHtml('articles/editArticle.php',
             ['title' => 'Редактирование', 'article' => $article]
         );
     }

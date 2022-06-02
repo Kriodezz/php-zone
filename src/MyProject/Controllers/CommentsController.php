@@ -59,8 +59,6 @@ class CommentsController extends AbstractController
 
         $article = Article::getById($comment->getArticleId());
 
-
-
         if (!empty($_POST)) {
             try {
 
@@ -68,7 +66,7 @@ class CommentsController extends AbstractController
 
             } catch (InvalidArgumentException $e) {
                 $this->view->renderHtml(
-                    'articles/edit.php',
+                    'articles/editArticle.php',
                     [
                         'title' => 'Редактирование',
                         'article' => $article,
@@ -82,11 +80,6 @@ class CommentsController extends AbstractController
             header('Location: /articles/' . $article->getId());
             exit();
         }
-
-
-
-
-
 
         $controller = new ArticlesController();
         $controller->view($article->getId(), ['commentEdit' => (int) $commentId]);

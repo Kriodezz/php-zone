@@ -20,6 +20,11 @@ return [
     '~^comments/(\d+)/edit~' => [CommentsController::class, 'editComment'],
     '~^comments/(\d+)/delete~' => [CommentsController::class, 'deleteComment'],
     '~^admin/482$~' => [AdminsController::class, 'enter'],
+    '~^admin/index$~' => [AdminsController::class, 'index'],
     '~^admin/articles$~' => [AdminsController::class, 'articles'],
-    '~^admin/comments~' => [AdminsController::class, 'comments']
+    '~^admin/articles/(\d+)/edit$~' => [AdminsController::class, 'editArticle'],
+    '~^admin/articles/(\d+)/delete$~' => [AdminsController::class, 'deleteArticle'],
+    '~^admin/comments$~' => [AdminsController::class, 'comments'],
+    '~^admin/comments/(\d+)/edit$~' => [AdminsController::class, 'editComments'],
+    '~^admin/comments/(\d+)/delete$~' => [AdminsController::class, 'deleteComments']
 ];

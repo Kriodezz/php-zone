@@ -2,6 +2,7 @@
 
 namespace MyProject\Models\Users;
 
+use MyProject\Exceptions\ForbiddenException;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\Users\User;
 
@@ -28,7 +29,7 @@ class Admin
         }
 
         if ($admin->getRole() !== 'admin') {
-            throw new InvalidArgumentException('Вы не являетесь администратором');
+            throw new ForbiddenException('Вы не являетесь администратором');
         }
     }
 }

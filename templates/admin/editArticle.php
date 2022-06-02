@@ -6,7 +6,7 @@
     <div style="color: red;"><?php echo $error; ?></div>
 <?php } ?>
 
-<form action="/articles/<?php echo $article->getId(); ?>/edit" method="post">
+<form action="/admin/articles/<?php echo $article->getId(); ?>/edit" method="post">
 
     <label for="name">Название статьи</label><br>
     <input type="text"
@@ -24,9 +24,14 @@
     <br>
     <br>
 
-
-    <input type="submit" value="Обновить">
+    <input type="submit" value="Отредактировать">
 
 </form>
+
+<br>
+
+<a href="/admin/articles">
+    <button>Отмена</button>
+</a>
 
 <?php include __DIR__ . '/../footer.php'; ?>
