@@ -110,4 +110,6 @@ class CommentsController extends AbstractController
         header('Location: /articles/' . $comment->getArticleId());
         exit();
     }
+
+
 }

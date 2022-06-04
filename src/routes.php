@@ -16,6 +16,7 @@ return [
     '~^users/(\d+)/activate/(.+)$~' => [UsersController::class, 'activate'],
     '~^users/login$~' => [UsersController::class, 'login'],
     '~^users/logout$~' => [UsersController::class, 'logout'],
+    '~^users/(\d+)/load-avatar$~' => [UsersController::class, 'loadAvatar'],
     '~^articles/(\d+)/comments~' => [CommentsController::class, 'addComment'],
     '~^comments/(\d+)/edit~' => [CommentsController::class, 'editComment'],
     '~^comments/(\d+)/delete~' => [CommentsController::class, 'deleteComment'],

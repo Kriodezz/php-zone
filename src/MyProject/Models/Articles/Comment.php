@@ -48,7 +48,7 @@ class Comment extends ActiveRecordEntity
         return $this->comment;
     }
 
-    public function getArticleId()
+    public function getArticleId(): int
     {
         return $this->articleId;
     }
@@ -56,6 +56,19 @@ class Comment extends ActiveRecordEntity
     protected static function getTableName(): string
     {
         return 'comments';
+    }
+
+    public function isExistAvatar($id): ?string
+    {
+
+        $files = scandir(__DIR__ . '/../../../../files/userAvatar');
+        foreach ($files as $file) {
+            $number = explode('.', $file);
+            if ((int) $number[0] == $id) {
+                return $file;
+            }
+        }
+        return null;
     }
 
     public static function findAllCommentForArticle(string $columnName, $value): ?array

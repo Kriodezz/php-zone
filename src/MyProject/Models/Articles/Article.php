@@ -62,6 +62,11 @@ class Article extends ActiveRecordEntity
         return User::getById($this->authorId);
     }
 
+    public function getPreview()
+    {
+        return mb_substr($this->getText(),0,100);
+    }
+
     public static function createArticle(array $fields, User $author): Article
     {
         if (empty($fields['name'])) {

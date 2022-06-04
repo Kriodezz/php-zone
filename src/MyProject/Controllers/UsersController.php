@@ -3,9 +3,11 @@
 namespace MyProject\Controllers;
 
 use MyProject\Models\Users\User;
+use MyProject\Models\Users\UserAvatar;
 use MyProject\Models\Users\UsersAuthService;
 use MyProject\Services\SendMailForSignUp;
 use MyProject\Exceptions\InvalidArgumentException;
+use MyProject\Exceptions\UserAvatarException;
 use MyProject\Models\Users\UserActivationService;
 use PHPMailer\PHPMailer\Exception;
 
@@ -107,5 +109,28 @@ class UsersController extends AbstractController
                 ['title' => 'Авторизация', 'error' => 'Сначала необходимо авторизоваться']
             );
         }
+    }
+
+    public function loadAvatar($userId)
+    {
+        try {
+            if (!empty($_FILES)) {
+                UserAvatar::upload($_FILES, $userId);
+
+                header('Location: /');
+                exit();
+            }
+
+        } catch (UserAvatarException $e) {
+            $this->view->renderHtml(
+                'users/loadAvatar.php',
+                ['title' => 'Загрузка авы', 'error' => $e->getMessage()]
+            );
+            return;
+        }
+
+        $this->view->renderHtml(
+            'users/loadAvatar.php', ['title' => 'Загрузка авы']
+        );
     }
 }

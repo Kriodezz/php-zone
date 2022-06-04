@@ -15,7 +15,7 @@
         <td>
             <ul>
             <?php foreach ($articles as $article) { ?>
-
+<ul>
                 <li>
                     <a href="/articles/<?php echo $article->getId(); ?>">
                         <?php echo $article->getName(); ?>
@@ -25,6 +25,8 @@
                         Удалить
                     </a>
                 </li>
+    <li><div><?php echo $article->getPreview(); ?></div></li>
+</ul>
                 <br>
 
             <?php } ?>
