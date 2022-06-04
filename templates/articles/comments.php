@@ -11,17 +11,17 @@ if ($user !== null) { ?>
     <form action="/articles/<?php echo $article->getId(); ?>/comments" method="post">
 
         <textarea
-            name="comment"
-            id="comment"
-            cols="30"
-            rows="5"
-            placeholder="Оставьте комментарий"
-                ></textarea>
-    <br><br>
+                name="comment"
+                id="comment"
+                cols="30"
+                rows="5"
+                placeholder="Оставьте комментарий"
+        ></textarea>
+        <br><br>
 
-    <button type="submit">Отправить</button>
+        <button type="submit">Отправить</button>
 
-</form>
+    </form>
 
 <?php } else { ?>
 
@@ -35,14 +35,25 @@ if ($user !== null) { ?>
 if (isset($comments)) {
 
     foreach ($comments as $comment) { ?>
-        <p id="comment<?php echo $comment->getID(); ?>"><?php echo $comment->getComment(); ?></p>
+        <div>
+            <img
+                src="/files/userAvatar/<?php echo $comment->isExistAvatar($comment->getUserId()) ?? '0.jpg'; ?>"
+                alt="Изображение повреждено"
+                width="40"
+            >
+        </div>
+
+        <div id="comment<?php echo $comment->getID(); ?>">
+            <?php echo $comment->getComment(); ?>
+        </div>
+
 
         <?php if (isset($commentEdit) && $commentEdit === $comment->getID()) {
             include __DIR__ . '/formCommentEdit.php';
         }
 
         if ($user !== null) {
-            if ( ('admin' === $user->getRole()) || ($comment->getUserId() === $user->getId()) ) { ?>
+            if (('admin' === $user->getRole()) || ($comment->getUserId() === $user->getId())) { ?>
                 <a href="/comments/<?php echo $comment->getID(); ?>/edit">Редактировать комментарий</a>
                 <br>
                 <a href="/comments/<?php echo $comment->getID(); ?>/delete">Удалить комментарий</a>
