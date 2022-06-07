@@ -2,13 +2,14 @@
 
 namespace MyProject\Models\Articles;
 
+use MyProject\Models\{
+    Users\User,
+    ActiveRecordEntity
+};
 use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Models\ActiveRecordEntity;
-use MyProject\Models\Users\User;
 
 class Article extends ActiveRecordEntity
 {
-
     protected $name;
 
     protected $text;
@@ -105,5 +106,4 @@ class Article extends ActiveRecordEntity
 
         return $this;
     }
-
 }

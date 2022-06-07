@@ -6,7 +6,6 @@ use MyProject\Services\Db;
 
 abstract class ActiveRecordEntity
 {
-
     protected $id;
 
     public function getId(): int

@@ -6,7 +6,6 @@ use MyProject\Exceptions\CliException;
 
 abstract class AbstractCommand
 {
-
     private $params;
 
     public function __construct(array $params)

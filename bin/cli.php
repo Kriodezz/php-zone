@@ -24,7 +24,6 @@ try {
         );
     }
 
-
     // Подготавливаем список аргументов
     $params = [];
     foreach ($argv as $argument) {

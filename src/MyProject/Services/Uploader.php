@@ -4,8 +4,6 @@
  */
 namespace MyProject\Services;
 
-use MyProject\Exceptions\UserAvatarException;
-
 class Uploader
 {
     protected string $formName;

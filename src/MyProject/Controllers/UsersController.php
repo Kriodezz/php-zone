@@ -2,18 +2,21 @@
 
 namespace MyProject\Controllers;
 
-use MyProject\Models\Users\User;
-use MyProject\Models\Users\UserAvatar;
-use MyProject\Models\Users\UsersAuthService;
+use MyProject\Models\Users\{
+    User,
+    UserAvatar,
+    UsersAuthService,
+    UserActivationService
+};
+use MyProject\Exceptions\{
+    InvalidArgumentException,
+    UserAvatarException
+};
 use MyProject\Services\SendMailForSignUp;
-use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Exceptions\UserAvatarException;
-use MyProject\Models\Users\UserActivationService;
 use PHPMailer\PHPMailer\Exception;
 
 class UsersController extends AbstractController
 {
-
     public function signUp()
     {
         if (!empty($_POST)) {

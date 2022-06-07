@@ -6,7 +6,6 @@ use MyProject\Models\Articles\Article;
 
 class MainController extends AbstractController
 {
-
     public function main()
     {
         $articles = Article::findAll();
@@ -15,5 +14,4 @@ class MainController extends AbstractController
             ['title' => 'My Blog', 'articles' => $articles]
         );
     }
-
 }

@@ -4,7 +4,6 @@ namespace MyProject\View;
 
 class View
 {
-
     protected string $path;
 
     protected $vars = [];
@@ -32,5 +31,4 @@ class View
 
         echo $buffer;
     }
-
 }

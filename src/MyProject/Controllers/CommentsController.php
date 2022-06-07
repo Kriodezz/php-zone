@@ -2,12 +2,16 @@
 
 namespace MyProject\Controllers;
 
-use MyProject\Exceptions\ForbiddenException;
-use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Exceptions\NotFoundException;
-use MyProject\Exceptions\UnauthorizedException;
-use MyProject\Models\Articles\Article;
-use MyProject\Models\Articles\Comment;
+use MyProject\Exceptions\{
+    ForbiddenException,
+    InvalidArgumentException,
+    NotFoundException,
+    UnauthorizedException
+};
+use MyProject\Models\Articles\{
+    Article,
+    Comment
+};
 
 class CommentsController extends AbstractController
 {
@@ -75,7 +79,6 @@ class CommentsController extends AbstractController
                 );
 
                 return;
-
             }
             header('Location: /articles/' . $article->getId());
             exit();
@@ -84,7 +87,6 @@ class CommentsController extends AbstractController
         $controller = new ArticlesController();
         $controller->view($article->getId(), ['commentEdit' => (int) $commentId]);
     }
-
 
     public function deleteComment($commentId)
     {
@@ -110,6 +112,4 @@ class CommentsController extends AbstractController
         header('Location: /articles/' . $comment->getArticleId());
         exit();
     }
-
-
 }

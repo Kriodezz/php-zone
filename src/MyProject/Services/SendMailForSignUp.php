@@ -19,7 +19,7 @@ class SendMailForSignUp extends \PHPMailer\PHPMailer\PHPMailer
         $mail = new PHPMailer(TRUE);
         //$mail->SMTPDebug = 4;
 
-        $mail->setFrom('kriodezztarakanov@yandex.ru');  //почта адресанта
+        $mail->setFrom('***');  //почта адресанта
         $mail->addAddress($user->getEmail());  //почта адресата
         $mail -> isHTML ( true );
         $mail->Subject = 'Активация аккаунта'; //тема
@@ -33,8 +33,8 @@ class SendMailForSignUp extends \PHPMailer\PHPMailer\PHPMailer
         $mail->Host = 'smtp.yandex.ru';
         $mail->SMTPAuth = TRUE;
         $mail->SMTPSecure = 'ssl';
-        $mail->Username = 'kriodezztarakanov@yandex.ru';
-        $mail->Password = 'jpvfobprahhkgpzj';
+        $mail->Username = '***';
+        $mail->Password = '***';
         $mail->Port = 465;
         $mail->send();
     }

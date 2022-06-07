@@ -2,10 +2,10 @@
 
 namespace MyProject\Models\Users;
 
-use MyProject\Exceptions\ForbiddenException;
-use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Models\Users\User;
-
+use MyProject\Exceptions\{
+    ForbiddenException,
+    InvalidArgumentException
+};
 
 class Admin
 {

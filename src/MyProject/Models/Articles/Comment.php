@@ -2,14 +2,15 @@
 
 namespace MyProject\Models\Articles;
 
+use MyProject\Models\{
+    Users\User,
+    ActiveRecordEntity
+};
 use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Models\ActiveRecordEntity;
-use MyProject\Models\Users\User;
 use MyProject\Services\Db;
 
 class Comment extends ActiveRecordEntity
 {
-
     protected $userId;
 
     protected $articleId;
@@ -60,7 +61,6 @@ class Comment extends ActiveRecordEntity
 
     public function isExistAvatar($id): ?string
     {
-
         $files = scandir(__DIR__ . '/../../../../files/userAvatar');
         foreach ($files as $file) {
             $number = explode('.', $file);
@@ -116,5 +116,4 @@ class Comment extends ActiveRecordEntity
 
         return $this;
     }
-
 }

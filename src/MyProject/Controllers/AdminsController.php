@@ -3,16 +3,19 @@
 namespace MyProject\Controllers;
 
 
-use MyProject\Exceptions\ForbiddenException;
-use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Exceptions\NotFoundException;
-use MyProject\Models\Articles\Article;
-use MyProject\Models\Articles\Comment;
+use MyProject\Exceptions\{
+    ForbiddenException,
+    InvalidArgumentException,
+    NotFoundException
+};
+use MyProject\Models\Articles\{
+    Article,
+    Comment
+};
 use MyProject\Models\Users\Admin;
 
 class AdminsController extends AbstractController
 {
-
     private function isNoAdmin()
     {
         if ( ($this->user === null) || ($this->user->getRole() !== 'admin') ) {
@@ -121,7 +124,6 @@ class AdminsController extends AbstractController
 
     public function comments()
     {
-
         $this->isNoAdmin();
 
         $comments = Comment::findAll();
@@ -132,7 +134,6 @@ class AdminsController extends AbstractController
 
     public function editComments($commentId)
     {
-
         $this->isNoAdmin();
 
         $comment = Comment::getById($commentId);
@@ -151,7 +152,6 @@ class AdminsController extends AbstractController
 
     public function deleteComments($commentId)
     {
-
         $this->isNoAdmin();
 
         $comment = Comment::getById($commentId);
@@ -160,6 +160,5 @@ class AdminsController extends AbstractController
 
         header('Location: /admin/comments');
         exit();
-
     }
 }

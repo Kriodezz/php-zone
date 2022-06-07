@@ -2,16 +2,19 @@
 
 namespace MyProject\Controllers;
 
-use MyProject\Exceptions\ForbiddenException;
-use MyProject\Exceptions\InvalidArgumentException;
-use MyProject\Exceptions\UnauthorizedException;
-use MyProject\Models\Articles\Article;
-use MyProject\Models\Articles\Comment;
-use MyProject\Exceptions\NotFoundException;
+use MyProject\Exceptions\{
+    ForbiddenException,
+    InvalidArgumentException,
+    NotFoundException,
+    UnauthorizedException
+};
+use MyProject\Models\Articles\{
+    Article,
+    Comment
+};
 
 class ArticlesController extends AbstractController
 {
-
     public function view(int $articleId, array $vars = [])
     {
         $article = Article::getById($articleId);
@@ -78,7 +81,6 @@ class ArticlesController extends AbstractController
         }
 
         $this->view->renderHtml('articles/create.php', ['title' => 'Новая статья']);
-
     }
 
     public function edit(int $articleId)
@@ -116,12 +118,11 @@ class ArticlesController extends AbstractController
                 );
 
                 return;
-
             }
             header('Location: /articles/' . $article->getId());
             exit();
-
         }
+
         $this->view->renderHtml('articles/editArticle.php',
             ['title' => 'Редактирование', 'article' => $article]
         );
