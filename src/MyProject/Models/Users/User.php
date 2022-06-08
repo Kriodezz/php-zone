@@ -8,17 +8,11 @@ use MyProject\Exceptions\InvalidArgumentException;
 class User extends ActiveRecordEntity
 {
     protected $nickname;
-
     protected $email;
-
     protected $isConfirmed;
-
     protected $role;
-
     protected $passwordHash;
-
     protected $authToken;
-
     protected $createdAt;
 
     public function getEmail(): string

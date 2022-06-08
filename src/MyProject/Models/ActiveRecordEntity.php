@@ -4,7 +4,7 @@ namespace MyProject\Models;
 
 use MyProject\Services\Db;
 
-abstract class ActiveRecordEntity
+abstract class ActiveRecordEntity implements \JsonSerializable
 {
     protected $id;
 
@@ -139,4 +139,8 @@ abstract class ActiveRecordEntity
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $source));
     }
 
+    public function jsonSerialize()
+    {
+        return $this->mapPropertiesToDbFormat();
+    }
 }

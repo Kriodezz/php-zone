@@ -11,7 +11,6 @@ use MyProject\View\View;
 abstract class AbstractController
 {
     protected View $view;
-
     protected ?User $user;
 
     public function __construct()
@@ -19,5 +18,13 @@ abstract class AbstractController
         $this->user = UsersAuthService::getUserByToken();
         $this->view = new View(__DIR__ . '/../../../templates');
         $this->view->setVars('user', $this->user);
+    }
+
+    protected function getInputData()
+    {
+        return json_decode(
+            file_get_contents('php://input'),
+            true
+        );
     }
 }

@@ -11,12 +11,15 @@ use MyProject\Exceptions\InvalidArgumentException;
 class Article extends ActiveRecordEntity
 {
     protected $name;
-
     protected $text;
-
     protected $authorId;
-
     protected $createdAt;
+
+    public function getParsedText(): string
+    {
+        $parser = new \Parsedown();
+        return $parser->text($this->getText());
+    }
 
     public function setName(string $name): void
     {

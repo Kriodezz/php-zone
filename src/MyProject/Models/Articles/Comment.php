@@ -12,11 +12,8 @@ use MyProject\Services\Db;
 class Comment extends ActiveRecordEntity
 {
     protected $userId;
-
     protected $articleId;
-
     protected $comment;
-
     protected $date;
 
     public function setUserId($userId): void

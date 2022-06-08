@@ -7,7 +7,6 @@ use MyProject\Exceptions\DbException;
 class Db
 {
     protected static $instance;
-
     protected \PDO $dbh;
 
     private function __construct()

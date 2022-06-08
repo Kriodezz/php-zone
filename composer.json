@@ -1,6 +1,11 @@
 {
+    "name": "kriodezz/php-zone",
+    "type": "project",
+    "license": "proprietary",
     "require": {
-        "phpmailer/phpmailer": "^6.6",
-      "ext-mbstring": "*"
+ 	"phpmailer/phpmailer": "^6.6",
+      	"ext-mbstring": "*",
+	"ext-json": "*",
+        "erusev/parsedown": "^1.7"
     }
 }
