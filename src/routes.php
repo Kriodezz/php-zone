@@ -27,5 +27,6 @@ return [
     '~^admin/articles/(\d+)/delete$~' => [AdminsController::class, 'deleteArticle'],
     '~^admin/comments$~' => [AdminsController::class, 'comments'],
     '~^admin/comments/(\d+)/edit$~' => [AdminsController::class, 'editComments'],
-    '~^admin/comments/(\d+)/delete$~' => [AdminsController::class, 'deleteComments']
+    '~^admin/comments/(\d+)/delete$~' => [AdminsController::class, 'deleteComments'],
+    '~^(\d+)$~' => [\MyProject\Controllers\MainController::class, 'page']
 ];
