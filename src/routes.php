@@ -1,10 +1,12 @@
 <?php
 
-use MyProject\Controllers\AdminsController;
-use MyProject\Controllers\ArticlesController;
-use MyProject\Controllers\MainController;
-use MyProject\Controllers\UsersController;
-use MyProject\Controllers\CommentsController;
+use MyProject\Controllers\{
+    AdminsController,
+    ArticlesController,
+    MainController,
+    UsersController,
+    CommentsController
+};
 
 return [
     '~^$~' => [MainController::class, 'main'],

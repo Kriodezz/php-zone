@@ -2,7 +2,6 @@
 
 try {
 
-    require_once __DIR__ . '/autoloadMain.php';
     require_once __DIR__ . '/vendor/autoload.php';
 
     $route = $_GET['route'] ?? '';
